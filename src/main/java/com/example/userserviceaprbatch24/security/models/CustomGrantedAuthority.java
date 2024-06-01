@@ -1,5 +1,6 @@
 package com.example.userserviceaprbatch24.security.models;
 
+import com.example.userserviceaprbatch24.models.Role;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,8 +12,14 @@ import org.springframework.security.core.GrantedAuthority;
 @Setter
 @NoArgsConstructor
 public class CustomGrantedAuthority implements GrantedAuthority {
+
+    private String authority;
+
+    public CustomGrantedAuthority(Role role) {
+        this.authority = role.getValue();
+    }
     @Override
     public String getAuthority() {
-        return null;
+        return authority;
     }
 }

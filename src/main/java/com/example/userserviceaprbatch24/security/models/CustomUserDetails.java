@@ -1,5 +1,6 @@
 package com.example.userserviceaprbatch24.security.models;
 
+import com.example.userserviceaprbatch24.models.Role;
 import com.example.userserviceaprbatch24.models.User;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Getter;
@@ -8,6 +9,7 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -34,7 +36,10 @@ public class CustomUserDetails implements UserDetails {
         this.credentialsNonExpired = true;
         this.enabled = true;
         this.userId = user.getId();
-        // TODO Roles
+        this.authorities = new ArrayList<>();
+        for(Role role : user.getRoles()) {
+            authorities.add(new CustomGrantedAuthority(role));
+        }
     }
 
     @Override
